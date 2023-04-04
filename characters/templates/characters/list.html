@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block main %}
+<h1>Your characters</h1>
+
+<ul>
+    {% for char in characters|dictsort:'name' %}
+    <li><a href="{% url 'characters:view' char.id %}">{{ char.name }}</a></li>
+    {% endfor %}
+</ul>
+
+{% endblock %}

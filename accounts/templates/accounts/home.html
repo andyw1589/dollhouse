@@ -1,0 +1,8 @@
+{% extends "base.html" %} 
+
+{% block main %} 
+<h1>Welcome, {{ request.user.username }}!</h1>
+<a href="{% url 'folders:view' request.user.rootfolder.id %}">view your folders</a>
+<a href="{% url 'characters:list' %}">view all your characters</a>
+<a href="{% url 'accounts:logout' %}">Log out</a>
+{% endblock %}
