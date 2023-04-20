@@ -1,6 +1,10 @@
 {% extends "base.html" %} 
 {% load static %}
 
+{% block title %}
+{{ char.name }}
+{% endblock %}
+
 {% block extra_imports %} 
 <link rel="stylesheet" href="{% static 'characters/view.css' %}">
 {% endblock %}

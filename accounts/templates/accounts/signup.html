@@ -1,10 +1,20 @@
 {% extends "base.html" %} 
 
-{% block main %} 
+{% load static %}
 
-<form action="{% url 'accounts:signup' %}" method="POST" class="mx-auto w-25">
+{% block extra_imports %}
+<link rel="stylesheet" href="{% static 'characters/forms.css' %}">
+{% endblock %}
+
+{% block title %}
+Sign Up
+{% endblock %}
+
+{% block main %} 
+<form action="{% url 'accounts:signup' %}" method="POST" class="mx-auto w-25 card p-3 mb-3">
     {% csrf_token %} 
-    
+    <h1>Sign Up</h1>
+
     <p>
         {% if form.username.errors %} 
         <div class="errors">{{ form.username.errors }}</div>
@@ -27,6 +37,6 @@
         <input type="password" id="password2" name="pass2" value="">
     </p>
 
-    <input type="submit" value="Sign up">
+    <input type="submit" id="submit" value="Sign up">
 </form>
 {% endblock %}

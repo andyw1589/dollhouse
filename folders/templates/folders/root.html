@@ -1,5 +1,9 @@
 {% extends "base.html" %}
 
+{% block title %}
+Root Folder
+{% endblock %}
+
 {% block main %}
 {% if request.user.id == root.owner.id %}
 <h1>Your folders</h1>

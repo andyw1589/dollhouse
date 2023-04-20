@@ -1,0 +1,18 @@
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+form h1 {
+    align-self: center;
+}
+
+form p input {
+    width: 100%;
+}
+
+form #submit {
+    width: 50%;
+    align-self: center;
+}

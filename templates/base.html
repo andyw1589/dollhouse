@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="author" content="Andy Wang">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ title }}</title>
+    <title>{% block title %}{% endblock %}</title>
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
     <link href="{% static 'css/style.css' %}" rel="stylesheet">
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
@@ -15,16 +15,16 @@
 <body>
     <div id="page-container">
         <div id="content-wrap">
-            <header>
-                <a href="{% url 'accounts:home' %}">homepage</a>
+            <header class="bg-dark">
+                <a href="{% url 'accounts:home' %}" class="ms-3">Home</a>
             </header>
-            <main>
+            <main class="py-5">
                 {% block main %} 
                 {% endblock %}
             </main>
         </div>
-        <footer>
-            i'm a footer!
+        <footer class="bg-dark">
+            Andy Wang &copy; 2023
         </footer>
     </div>
 </body>
