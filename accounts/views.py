@@ -15,11 +15,6 @@ class SignUpView(FormView):
     template_name = "accounts/signup.html"
     success_url = reverse_lazy("accounts:login")
     form_class = UserForm
-
-    def get_context_data(self, **kwargs):
-        data = super().get_context_data(**kwargs)
-        data["title"] = "Sign Up"
-        return data
     
     def form_valid(self, form):
         # create the user
@@ -68,7 +63,6 @@ class LoginView(FormView):
 
         user = authenticate(self.request, username=username, password=password)
         if user is None:
-            print("bruh")
             form.add_error("username", "Username/password combination is not correct")
             return super().form_invalid(form)
         else:

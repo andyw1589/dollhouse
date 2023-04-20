@@ -20,11 +20,21 @@ footer {
 header {
     height: 2.5rem;
     line-height: 2.5rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 header a {
     text-decoration: none;
     color: rgb(200, 214, 222);
+}
+
+header nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    column-gap: 1rem;
 }
 
 .errors {

@@ -15,10 +15,17 @@
 <body>
     <div id="page-container">
         <div id="content-wrap">
-            <header class="bg-dark">
-                <a href="{% url 'accounts:home' %}" class="ms-3">Home</a>
+            <header class="bg-dark px-4">
+                <a href="{% url 'accounts:home' %}" id="homelink">Home</a>
+                <nav>
+                    {% if request.user.is_authenticated %}
+                    <a href="{% url 'folders:view' request.user.rootfolder.id %}">Folders</a>
+                    <a href="{% url 'characters:list' %}">Characters</a>
+                    <a href="{% url 'accounts:logout' %}">Log out</a>
+                    {% endif %}
+                </nav>
             </header>
-            <main class="py-5">
+            <main class="p-5">
                 {% block main %} 
                 {% endblock %}
             </main>

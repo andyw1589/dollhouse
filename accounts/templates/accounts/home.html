@@ -6,7 +6,11 @@ Home
 
 {% block main %} 
 <h1>Welcome, {{ request.user.username }}!</h1>
-<a href="{% url 'folders:view' request.user.rootfolder.id %}">view your folders</a>
-<a href="{% url 'characters:list' %}">view all your characters</a>
-<a href="{% url 'accounts:logout' %}">Log out</a>
+<p class="lead">
+    Here you can create characters and come up with backgrounds and histories for them. You can also organize them into folders. Go crazy!
+</p>
+<nav>
+    <p class="mb-0">View all your folders <a href="{% url 'folders:view' request.user.rootfolder.id %}">here</a>.</p>
+    <p>View all your characters <a href="{% url 'characters:list' %}">here</a>.</p>
+</nav>
 {% endblock %}
