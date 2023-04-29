@@ -11,21 +11,20 @@
 
 {% block main %} 
 <h1>Viewing character &quot;{{ char.name }}&quot;</h1>
-<a href="{% url 'folders:view' char.folder.id %}">View folder</a>
 
-{% if request.user.id == char.owner.id %}
-<a href="{% url 'characters:edit' char.id %}">Edit</a>
-<a href="{% url 'characters:delete' char.id %}">Delete</a>
-
-{% if delete_confirmation %}
-<form action="{% url 'characters:delete' char.id %}" method="POST">
-    {% csrf_token %}
-    <p>Are you sure you want to delete this character?</p>
-    {{ form }}
-    <input type="submit" value="Confirm">
-</form>
+{% if char.description %}
+<p class="lead">{{ char.description }}</p>
 {% endif %}
 
+<nav class="mb-3">
+    <a href="{% url 'folders:view' char.folder.id %}" class="btn btn-secondary">View folder</a>
+    {% if request.user.id == char.owner.id %}
+    <a href="{% url 'characters:edit' char.id %}" class="btn btn-primary">Edit</a>
+    <a href="{% url 'characters:delete' char.id %}" class="btn btn-danger">Delete</a>
+    {% endif %}
+</nav>
+
+{% if request.user.id == char.owner.id %}
 {% if char.private %} 
 <p>This character is <strong>private</strong></p>
 {% else %} 
@@ -36,85 +35,81 @@
 <p>Created {{ char.created }}</p>
 
 <div id="character-view">
-    <section id="basics">
-        <h2>Basics:</h2>
-        <p>Name: {{ char.name }}</p>
-        <p>Nicknames: {{ char.nicknames }}</p>
-        <p>Age: {{ char.age|default_if_none:'Unspecified' }}</p>
-        <p>Sex: {{ char.sex|default_if_none:'Unspecified' }}</p>
-        <p>Gender: {{ char.gender|default_if_none:'Unspecified' }}</p>
-        <p>Religion: {{ char.religion }}</p>
-        <p>Race: {{ char.race|default_if_none:'Unspecified' }}</p>
-        <p>Species: {{ char.species|default_if_none:'Unspecified' }}</p>
-        <p>Description: {{ char.description|default_if_none:'' }}</p>
-    </section>
+    <div class="row mb-3">
+        <section id="basics" class="col-md-4 card p-2">
+            <h2>Basics:</h2>
+            <p>Name: {{ char.name }}</p>
+            <p>Nicknames: {{ char.nicknames }}</p>
+            <p>Age: {{ char.age|default_if_none:'Unspecified' }}</p>
+            <p>Sex: {{ char.sex|default_if_none:'Unspecified' }}</p>
+            <p>Gender: {{ char.gender|default_if_none:'Unspecified' }}</p>
+            <p>Religion: {{ char.religion }}</p>
+            <p>Race: {{ char.race|default_if_none:'Unspecified' }}</p>
+            <p>Species: {{ char.species|default_if_none:'Unspecified' }}</p>
+            <p>Birthday: {{ char.birthday|default_if_none:'Unspecified' }}</p>
+            <p>Birthplace: {{ char.birthplace|default_if_none:'Unspecified' }}</p>
+        </section>
+        <section id="physical" class="col-md-8 card p-2">
+            <h2>Physicality:</h2>
+            <p>Blood type: {{ char.blood_type|default_if_none:'Unspecified' }}</p>
 
-    <section id="birth">
-        <h2>Birth Details:</h2>
-        <p>Birthday: {{ char.birthday|default_if_none:'Unspecified' }}</p>
-        <p>Birthplace: {{ char.birthplace|default_if_none:'Unspecified' }}</p>
-    </section>
+            {% if char.height %}
+            <p>Height: {{ char.height }}m</p>
+            {% else %} 
+            <p>Height: Unspecified</p>
+            {% endif %}
 
-    <section id="physical">
-        <h2>Physicality:</h2>
-        <p>Blood type: {{ char.blood_type|default_if_none:'Unspecified' }}</p>
+            {% if char.weight %}
+            <p>Weight: {{ char.weight }}kg</p>
+            {% else %} 
+            <p>Weight: Unspecified</p>
+            {% endif %}
 
-        {% if char.height %}
-        <p>Height: {{ char.height }}m</p>
-        {% else %} 
-        <p>Height: Unspecified</p>
-        {% endif %}
-
-        {% if char.weight %}
-        <p>Weight: {{ char.weight }}kg</p>
-        {% else %} 
-        <p>Weight: Unspecified</p>
-        {% endif %}
-
-        <p>Eye colour: {{ char.eye_colour|default_if_none:'Unspecified' }}</p>
-        <p>Hair colour: {{ char.hair_colour|default_if_none:'Unspecified' }}</p>
-        <p>Eyesight: {{ char.eyesight|default_if_none:'Unspecified' }}</p>
-        <p>Handedness: {{ char.handedness|default_if_none:'Unspecified' }}</p>
-        <p>Voice: {{ char.voice|default_if_none:'Unspecified' }}</p>
-        <p>Physical description: {{ char.physical_description|default_if_none:'' }}</p>
-        <p>Clothing: {{ char.clothing|default_if_none:'Unspecified' }}</p>
-    </section>
-
-    <section id="history">
-        <h2>History and Relationships:</h2>
-        <p>Medical history: {{ char.medical_history }}</p>
-        <p>Criminal record: {{ char.criminal_record }}</p>
-        <p>Education: {{ char.education|default_if_none:'Unspecified' }}</p>
-        <p>Forming events: {{ char.forming_events }}</p>
-        <p>Romantic history: {{ char.romance }}</p>
-        <p>Employment history: {{ char.employment }}</p>
-        <p>Relationships: {{ char.relationships|default_if_none:'Unspecified' }}</p>
-        <p>Pets: {{ char.pets }}</p>
-    </section>
-
-    <section id="personality">
-        <h2>Personality</h2>
-        <p>Hopes and dreams: {{ char.hopes_and_dreams }}</p>
-        <p>Fears: {{ char.fears }}</p>
-        <p>Hobbies: {{ char.hobbies }}</p>
-        <p>Likes: {{ char.likes }}</p>
-        <p>Dislikes: {{ char.dislikes }}</p>
-        <p>Personality: {{ char.personality|default_if_none:'Unspecified' }}</p>
-    </section>
-
-    <section id="misc">
-        <h2>Ability:</h2>
-        <p>Skills: {{ char.skills }}</p>
-        <p>Weaknesses: {{ char.weaknesses }}</p>
-    </section>
-
-    <section id="tags">
-        <h2>Tags:</h2>
-        <p>
-        {% for tag in char.tag_set.all %}
-        {{ tag.tag }}, 
-        {% endfor %}
-        </p>
-    </section>
+            <p>Eye colour: {{ char.eye_colour|default_if_none:'Unspecified' }}</p>
+            <p>Hair colour: {{ char.hair_colour|default_if_none:'Unspecified' }}</p>
+            <p>Eyesight: {{ char.eyesight|default_if_none:'Unspecified' }}</p>
+            <p>Handedness: {{ char.handedness|default_if_none:'Unspecified' }}</p>
+            <p>Voice: {{ char.voice|default_if_none:'Unspecified' }}</p>
+            <p>Physical description: {{ char.physical_description|default_if_none:'' }}</p>
+            <p>Clothing: {{ char.clothing|default_if_none:'Unspecified' }}</p>
+        </section>
+    </div>
+    <div class="row mb-3">
+        <section id="history" class="col-md card p-2">
+            <h2>History and Relationships:</h2>
+            <p>Medical history: {{ char.medical_history }}</p>
+            <p>Criminal record: {{ char.criminal_record }}</p>
+            <p>Education: {{ char.education|default_if_none:'Unspecified' }}</p>
+            <p>Forming events: {{ char.forming_events }}</p>
+            <p>Romantic history: {{ char.romance }}</p>
+            <p>Employment history: {{ char.employment }}</p>
+            <p>Relationships: {{ char.relationships|default_if_none:'Unspecified' }}</p>
+            <p>Pets: {{ char.pets }}</p>
+        </section>
+        <section id="personality" class="col-md-4 card p-2">
+            <h2>Personality</h2>
+            <p>Hopes and dreams: {{ char.hopes_and_dreams }}</p>
+            <p>Fears: {{ char.fears }}</p>
+            <p>Hobbies: {{ char.hobbies }}</p>
+            <p>Likes: {{ char.likes }}</p>
+            <p>Dislikes: {{ char.dislikes }}</p>
+            <p>Personality: {{ char.personality|default_if_none:'Unspecified' }}</p>
+        </section>
+        <section id="misc" class="col-md-2 card p-2">
+            <h2>Abilities:</h2>
+            <p>Skills: {{ char.skills }}</p>
+            <p>Weaknesses: {{ char.weaknesses }}</p>
+        </section>
+    </div>
+    <div class="row mb-3">
+        <section id="tags" class="col-md card p-2">
+            <h2>Tags:</h2>
+            <p>
+            {% for tag in char.tag_set.all %}
+            {{ tag.tag }}, 
+            {% endfor %}
+            </p>
+        </section>
+    </div>
 </div>
 {% endblock %}

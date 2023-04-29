@@ -5,10 +5,10 @@ Delete Folder
 {% endblock %}
 
 {% block main %}
-<form action="{% url 'folders:delete' folder.id %}" method="POST">
+<form action="{% url 'folders:delete' folder.id %}" method="POST" class="card mx-auto w-50 p-3">
     {% csrf_token %}
-    <p>Are you sure you want to delete this folder?</p>
+    <label class="fw-bold text-center" for="submit">Are you sure you want to delete this folder? This cannot be undone.</p>
     {{ form }}
-    <input type="submit" value="Confirm">
+    <input type="submit" value="Confirm" id="submit" class="w-25 mx-auto d-block">
 </form>
 {% endblock %}

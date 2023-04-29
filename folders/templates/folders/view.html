@@ -6,17 +6,24 @@
 
 {% block main %}
 <h1>Viewing folder &quot;{{ folder.name }}&quot;</h1>
-
-{% if folder.parent %}
-    <a href="{% url 'folders:view' folder.parent.id %}">View parent folder</a>
+{% if folder.description %}
+<p class="lead">{{ folder.description }}</p>
 {% endif %}
 
-{% if request.user.id == folder.owner.id %}
-<a href="{% url 'folders:add' folder.id %}">Add folder</a>
-<a href="{% url 'characters:add' folder.id %}">Add character</a>
-<a href="{% url 'folders:edit' folder.id %}">Edit</a>
-<a href="{% url 'folders:delete' folder.id %}">Delete</a>
+<nav class="mb-3">
+    {% if folder.parent %}
+    <a href="{% url 'folders:view' folder.parent.id %}" class="btn btn-secondary">View parent folder</a>
+    {% endif %}
 
+    {% if request.user.id == folder.owner.id %}
+    <a href="{% url 'folders:add' folder.id %}" class="btn btn-primary">Add folder</a>
+    <a href="{% url 'characters:add' folder.id %}" class="btn btn-primary">Add character</a>
+    <a href="{% url 'folders:edit' folder.id %}" class="btn btn-primary">Edit</a>
+    <a href="{% url 'folders:delete' folder.id %}" class="btn btn-danger">Delete</a>
+    {% endif %}
+</nav>
+
+{% if request.user.id == folder.owner.id %}
 {% if folder.private %} 
 <p>This folder is <strong>private</strong></p>
 {% else %} 
@@ -24,9 +31,6 @@
 {% endif %}
 {% endif %} 
 
-{% if folder.description %}
-<p>{{ folder.description }}</p>
-{% endif %}
 <p>Created {{ folder.created }}</p>
 
 <ul>
