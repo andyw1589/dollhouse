@@ -4,11 +4,19 @@ form {
     justify-content: center;
 }
 
+form.thin {
+    width: max(25%, 300px);
+}
+
+form.thick {
+    width: max(50%, 300px);
+}
+
 form h1 {
     align-self: center;
 }
 
-form p input {
+form p input[type="text"],input[type="number"],textarea {
     width: 100%;
 }
 

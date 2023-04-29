@@ -1,15 +1,17 @@
 from django.views.generic.edit import CreateView
-from folders.models import Folder
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.http import HttpResponseForbidden
 from django.shortcuts import get_object_or_404
 
+from folders.models import Folder
+from folders.forms import FolderForm
+
 class AddFolderView(LoginRequiredMixin, CreateView):
     login_url = reverse_lazy("accounts:login")
     model = Folder
     template_name = "folders/add.html"
-    fields = ["parent", "name", "description", "private"]
+    form_class = FolderForm
 
     def get(self, request, parent):
         # user must be the owner

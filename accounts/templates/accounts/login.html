@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block extra_imports %}
-<link rel="stylesheet" href="{% static 'accounts/forms.css' %}">
+<link rel="stylesheet" href="{% static 'css/forms.css' %}">
 {% endblock %}
 
 {% block title %}
@@ -10,7 +10,7 @@ Log In
 {% endblock %}
 
 {% block main %} 
-<form action="{% url 'accounts:login' %}" method="POST" class="mx-auto w-25 card p-3 mb-3">
+<form action="{% url 'accounts:login' %}" method="POST" class="mx-auto card p-3 mb-3 thin">
     {% csrf_token %} 
     <h1>Log In</h1>
 

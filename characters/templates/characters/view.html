@@ -5,10 +5,6 @@
 {{ char.name }}
 {% endblock %}
 
-{% block extra_imports %} 
-<link rel="stylesheet" href="{% static 'characters/view.css' %}">
-{% endblock %}
-
 {% block main %} 
 <h1>Viewing character &quot;{{ char.name }}&quot;</h1>
 
@@ -104,11 +100,13 @@
     <div class="row mb-3">
         <section id="tags" class="col-md card p-2">
             <h2>Tags:</h2>
-            <p>
-            {% for tag in char.tag_set.all %}
-            {{ tag.tag }}, 
-            {% endfor %}
-            </p>
+            <div style="display: flex; flex-direction: row; justify-content: flex-start;">
+                {% for tag in char.tag_set.all %}
+                <div class="card bg-body-secondary me-2 px-1">
+                    {{ tag.tag }}
+                </div>
+                {% endfor %}
+            </div>
         </section>
     </div>
 </div>

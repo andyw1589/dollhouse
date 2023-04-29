@@ -1,14 +1,19 @@
 {% extends "base.html" %} 
+{% load static %} 
+
+{% block extra_imports %}
+<link rel="stylesheet" href="{% static 'css/forms.css' %}">
+{% endblock %}
 
 {% block title %}
 Edit Character
 {% endblock %}
 
 {% block main %} 
-<h1>Edit character</h1>
-<form action="{% url 'characters:edit' char.id%}" method="POST" class="w-25 mx-auto">
+<form action="{% url 'characters:edit' char.id%}" method="POST" class="mx-auto card p-3 thick">
     {% csrf_token %} 
-    {% include 'folders/form.html' with form=form %}
-    <input type="submit" value="Edit">
+    <h2>Edit character</h2>
+    {{ form.as_p }}
+    <input type="submit" class="d-block mx-auto w-25">
 </form>
 {% endblock %}

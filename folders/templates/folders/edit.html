@@ -1,14 +1,19 @@
 {% extends "base.html" %} 
+{% load static %} 
+
+{% block extra_imports %}
+<link rel="stylesheet" href="{% static 'css/forms.css' %}">
+{% endblock %}
 
 {% block title %}
 Edit Folder
 {% endblock %}
 
 {% block main %} 
-<h1>Edit folder</h1>
-<form action="{% url 'folders:edit' folder.id %}" method="POST" class="w-25 mx-auto">
+<form action="{% url 'folders:edit' folder.id %}" method="POST" class="mx-auto card p-3 thin">
     {% csrf_token %} 
-    {% include 'folders/form.html' with form=form %}
-    <input type="submit" value="Edit">
+    <h1>Edit folder</h1>
+    {{ form.as_p }}
+    <input type="submit" value="Edit" class="d-block mx-auto w-25">
 </form>
 {% endblock %}

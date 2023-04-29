@@ -1,15 +1,17 @@
 from django.views.generic.edit import UpdateView
-from folders.models import Folder
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.http import HttpResponseForbidden
+
+from folders.models import Folder
+from folders.forms import FolderForm
 
 class EditFolderView(LoginRequiredMixin, UpdateView):
     login_url = reverse_lazy("accounts:login")
     template_name="folders/edit.html"
     context_object_name = "folder"
     model = Folder
-    fields = ["parent", "name", "description", "private"]
+    form_class = FolderForm
 
     def get(self, request, pk):
         # user must be the owner
